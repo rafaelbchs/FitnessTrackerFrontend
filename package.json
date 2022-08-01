@@ -1,16 +1,29 @@
 {
-  "dependencies": {
-    "axios": "^0.27.2",
-    "bootstrap": "^5.2.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^6.3.0"
-  },
   "name": "fitnesstrackerfrontend",
   "version": "1.0.0",
-  "description": "fitness tracker app",
+  "description": "",
   "main": "index.js",
-  "devDependencies": {},
+  "dependencies": {
+    "asynckit": "^0.4.0",
+    "axios": "^0.27.2",
+    "bootstrap": "^5.2.0",
+    "combined-stream": "^1.0.8",
+    "delayed-stream": "^1.0.0",
+    "follow-redirects": "^1.15.1",
+    "form-data": "^4.0.0",
+    "history": "^5.3.0",
+    "js-tokens": "^4.0.0",
+    "loose-envify": "^1.4.0",
+    "mime-db": "^1.52.0",
+    "mime-types": "^2.1.35",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router": "^6.3.0",
+    "react-router-dom": "^6.3.0",
+    "react-scripts": "^5.0.1",
+    "regenerator-runtime": "^0.13.9",
+    "scheduler": "^0.23.0"
+  },
   "scripts": {
     "test": "test",
     "start-dev": "NODE_ENV='development' react-scripts start",
