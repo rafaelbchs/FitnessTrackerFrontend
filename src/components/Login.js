@@ -1,14 +1,17 @@
 import React from "react"
 import { loginUser } from "../api";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  let navigate = useNavigate();
     async function handleSubmit (event){
         event.preventDefault()
        
         const username = event.target[0].value;
         const password = event.target[1].value;
-        loginUser (username, password);
-
+        const {user , token} = await loginUser(username, password);
+        console.log(user, token)
+        navigate("/");
     }
     return (
         <div>
@@ -23,8 +26,8 @@ const Login = () => {
             <h3 className="mb-5">Sign in</h3>
 
             <div className="form-outline mb-4">
-              <input type="email" id="typeEmailX-2" className="form-control form-control-lg" />
-              <label className="form-label" htmlFor="typeEmailX-2">Email</label>
+              <input type="text" id="typeEmailX-2" className="form-control form-control-lg" />
+              <label className="form-label" htmlFor="typeEmailX-2">Username</label>
             </div>
 
             <div className="form-outline mb-4">
