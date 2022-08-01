@@ -1,7 +1,14 @@
 import React from "react";
-
+import Navbar from "./Navbar"
+import Login from "./Login"
 const App = () => {
-    return <h1>Hello Simu</h1>
+    return ( 
+        <>
+        <Navbar/>
+        <Login/>
+        </>
+       
+    )   
 }
 
 export default App;
