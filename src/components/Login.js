@@ -7,7 +7,7 @@ const Login = () => {
        
         const username = event.target[0].value;
         const password = event.target[1].value;
-        // loginUser function
+        loginUser (username, password);
 
     }
     return (

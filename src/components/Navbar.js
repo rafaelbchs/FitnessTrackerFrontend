@@ -1,4 +1,6 @@
 import React from "react"
+import { NavLink } from "react-router-dom";
+
 const Navbar = () => {
     return (
         <nav className="navbar navbar-expand-lg bg-light">
@@ -16,10 +18,10 @@ const Navbar = () => {
           <a className="nav-link" href="#">Routines</a>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="#">Activities</a>
+          <NavLink className="nav-link" to="/register">SignUp</NavLink>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="#">SignUp</a>
+          <a className="nav-link" href="#">Activities</a>
         </li>
         <li className="nav-item">
           <a className="nav-link" href="#">LogOut</a>
