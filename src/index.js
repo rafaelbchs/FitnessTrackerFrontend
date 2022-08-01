@@ -3,5 +3,5 @@ import ReactDOM from "react-dom/client";
 import { App } from "./components";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<h1>Hello Simu</h1>);
+root.render(<App />);
  

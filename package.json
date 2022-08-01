@@ -9,16 +9,8 @@
     "start": "react-scripts start",
     "build": "NODE_ENV=production npm run compile-env && react-scripts build"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/rafaelbchs/FitnessTrackerFrontend.git"
-  },
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/rafaelbchs/FitnessTrackerFrontend/issues"
-  },
-  "homepage": "https://github.com/rafaelbchs/FitnessTrackerFrontend#readme",
   "dependencies": {
     "axios": "^0.27.2",
     "react": "^18.2.0",
