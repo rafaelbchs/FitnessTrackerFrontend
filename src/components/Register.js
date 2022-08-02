@@ -2,9 +2,9 @@ import React from "react"
 import { registerUser } from "../api";
 import { useNavigate } from "react-router-dom";
 
-const Register = () => {
+const Register = (props) => {
     let navigate = useNavigate();
-
+    const { setToken } = props;
     async function handleSubmit (event){
         event.preventDefault()
         const username = event.target[0].value;
@@ -13,7 +13,10 @@ const Register = () => {
         if (password != confirmPassword) {
             return alert("Passwords do not match");
           }
-        registerUser (username, password);
+          const {user , token} = await registerUser (username, password);
+        localStorage.setItem("user", user)
+        localStorage.setItem("token", token)
+        setToken(token) 
         navigate("/");
     }
     return (
@@ -46,7 +49,7 @@ const Register = () => {
             </div>
 
             <div className="form-check d-flex justify-content-center mb-4">
-              <input className="form-check-input me-2" type="checkbox" value="" id="form2Example33" checked />
+              <input className="form-check-input me-2" type="checkbox" value="" id="form2Example33" defaultChecked />
               <label className="form-check-label" htmlFor="form2Example33">
                 Subscribe to our newsletter
               </label>
@@ -67,7 +70,7 @@ const Register = () => {
               </button>
 
               <button type="button" className="btn btn-link btn-floating mx-1">
-                <i class="fab fa-twitter"></i>
+                <i className="fab fa-twitter"></i>
               </button>
 
               <button type="button" className="btn btn-link btn-floating mx-1">

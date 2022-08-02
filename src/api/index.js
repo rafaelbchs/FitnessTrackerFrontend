@@ -17,24 +17,26 @@ export async function loginUser(username, password) {
       const result = response.json()
       return result
   } catch (error) {
-    console.log(result);
+    console.error(error);
   }      
 }
 
 export async function registerUser(username, password){
-  fetch(`${BASE}users/register`, {
-  method: "POST",
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify({
-    username: username,
-    password: password
-  })
-}).then(response => response.json())
-  .then(result => {
-    console.log(result);
-    //get the token
-  })
-  .catch(console.error);
+  try {
+    const response = await fetch(`${BASE}users/register`, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username: username,
+        password: password
+      })})
+      const result = response.json()
+        return result
+      
+  } catch (error) {
+    console.error(error)
+  }
+
 }

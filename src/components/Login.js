@@ -2,15 +2,18 @@ import React from "react"
 import { loginUser } from "../api";
 import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+const Login = (props) => {
   let navigate = useNavigate();
+  const { setToken } = props;
     async function handleSubmit (event){
         event.preventDefault()
-       
+   
         const username = event.target[0].value;
         const password = event.target[1].value;
         const {user , token} = await loginUser(username, password);
-        console.log(user, token)
+        localStorage.setItem("user", user)
+        localStorage.setItem("token", token)
+        setToken(token)
         navigate("/");
     }
     return (
