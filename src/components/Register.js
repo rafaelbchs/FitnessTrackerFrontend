@@ -21,7 +21,7 @@ const Register = (props) => {
     }
     return (
 
-<section className="text-center text-lg-start cascading-right" >
+<section className="text-center text-lg-start cascading-right" style={{marginTop: "7rem"}}>
 
 <div className="container py-4">
   <div className="row g-0 align-items-center">

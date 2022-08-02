@@ -40,3 +40,16 @@ export async function registerUser(username, password){
   }
 
 }
+
+export async function getPublicRoutines(){
+  try {
+    const response = await fetch(`${BASE}routines`, {
+      headers: {
+        'Content-Type': 'application/json'
+      }})
+      const result = response.json()
+      return result
+  } catch (error) {
+    console.error(error)
+  }
+}

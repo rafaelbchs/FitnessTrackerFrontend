@@ -1,6 +1,7 @@
 import React from "react"
 import { loginUser } from "../api";
 import { useNavigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 
 const Login = (props) => {
   let navigate = useNavigate();
@@ -11,12 +12,20 @@ const Login = (props) => {
         const username = event.target[0].value;
         const password = event.target[1].value;
         const {user , token} = await loginUser(username, password);
+        if(!user){
+          alert("User or password is incorrect")
+          event.target[0].value = ""
+          event.target[1].value = ""
+        }
+        if(user){
         localStorage.setItem("user", user)
         localStorage.setItem("token", token)
         setToken(token)
         navigate("/");
+      }
     }
     return (
+      <> 
         <div>
         <section className="vh-100" style={{backgroundColor: "#508bfc"}}>
   <div className="container py-5 h-100">
@@ -58,6 +67,7 @@ const Login = (props) => {
     </div>
   </div>
 </section></div>
+</>
     )
 }
 export default Login
