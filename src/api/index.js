@@ -53,3 +53,24 @@ export async function getPublicRoutines(){
     console.error(error)
   }
 }
+
+export async function createRoutine(name, goal, isPublic, token){
+  try {
+    const response = await fetch(`${BASE}routines`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      },
+      method: "POST",
+      body: JSON.stringify({
+        name: name,
+        goal: goal,
+        isPublic: isPublic
+      })
+    })
+    const result = response.json()
+    return result
+  } catch (error) {
+    console.error(error)
+  }
+}

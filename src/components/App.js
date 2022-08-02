@@ -3,7 +3,9 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Register from "./Register";
 import Navbar from "./Navbar";
 import Login from "./Login";
-import Routines from "./Routines"
+import Routines from "./Routines";
+import RoutineActivities from "./RoutineActivities";
+import MyRoutines from "./MyRoutines";
 
 const App = () => {
   const [token, setToken] = useState("");
@@ -27,6 +29,14 @@ const App = () => {
         <Route 
             path="/routines" 
             element={<Routines />} 
+        />
+        <Route 
+            path="/routines/:creatorName/:routineId"
+            element={<RoutineActivities />}
+        />
+        <Route 
+            path="/myroutines"
+            element={<MyRoutines/>}
         />
         </Route>
       </Routes>
