@@ -3,7 +3,10 @@ import { useNavigate, Link, useLocation } from "react-router-dom";
 import { addActivityToRoutine, getAllActivities } from "../api";
 
 
+
+
 const EachRoutine = () => {
+  let navigate = useNavigate();
   const location = useLocation();
   const { routine } = location.state;
   const [activities, setActivities] = useState([]);
@@ -24,7 +27,8 @@ const EachRoutine = () => {
     const duration = event.target[1].value;
     const activityId = event.target[2].value;
     const response = await addActivityToRoutine(activityId, count, duration, routineId)
-    console.log(response)
+    navigate(`/myroutines`);
+
   }
   async function handleUpdateRoutine(event) {
     event.preventDefault();
