@@ -88,3 +88,36 @@ export async function getPublicRoutinesByUser(username, token){
     console.error(error)
   }
 }
+
+export async function getAllActivities(){
+  try {
+    const response = await fetch(`${BASE}activities`, {
+      headers: {
+        'Content-Type': 'application/json'
+      }})
+      const result = response.json()
+      return result
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export async function addActivityToRoutine(activityId, count, duration, routineId){
+  try {
+    const response = await fetch(`${BASE}routines/${routineId}/activities`, {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      method: "POST",
+      body: JSON.stringify({
+        activityId: activityId,
+        count: count,
+        duration: duration
+      })
+    })
+    const result = response.json()
+    return result
+  } catch (error) {
+    console.error(error)
+  }
+}

@@ -6,6 +6,7 @@ import Login from "./Login";
 import Routines from "./Routines";
 import RoutineActivities from "./RoutineActivities";
 import MyRoutines from "./MyRoutines";
+import EachRoutine from "./EachRoutine";
 
 const App = () => {
   const [token, setToken] = useState("");
@@ -38,11 +39,13 @@ const App = () => {
             path="/myroutines"
             element={<MyRoutines/>}
         />
-        </Route>
         <Route 
             path="/myroutines/:creatorId/:routineId"
-            element={<MyRoutines />}
+            element={<EachRoutine />}
         />
+
+        </Route>
+
 
       </Routes>
     </BrowserRouter>
