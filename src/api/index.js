@@ -161,3 +161,36 @@ export async function updateSingleRoutineActivity(count, duration, routineActivi
     console.error(error)
   }
 }
+
+export async function deleteRoutineActivity(routineActivityId, token){
+  try {
+    const response = await fetch(`${BASE}routine_activities/${routineActivityId}`, {
+  method: "DELETE",
+  headers: {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${token}`
+  }
+})
+  const result = response.json()
+  return result
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export async function submitDeleteRoutine(routineId, token){
+  try {
+    const response = await fetch(`${BASE}routines/${routineId}`, {
+  method: "DELETE",
+  headers: {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${token}`
+  }
+})
+  const result = response.json()
+  return result
+  } catch (error) {
+    console.error(error)
+  }
+}
+
