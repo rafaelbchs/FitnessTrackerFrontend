@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
-import { addActivityToRoutine, getAllActivities } from "../api";
+import { addActivityToRoutine, getAllActivities, updateSingleRoutine, updateSingleRoutineActivity } from "../api";
 
 const EachRoutine = () => {
   let navigate = useNavigate();
@@ -15,21 +15,14 @@ const EachRoutine = () => {
   const [showActivities, setShowActivities] = useState(true);
   const routineId = routine.id
   const currentActivities = routine.activities
+  const token = localStorage.getItem("token")
+
   async function handleAddActivity(event) {
     event.preventDefault();
     setAddActivity(true);
     setShowActivities(false)
   }
-  async function handleSubmitActivity(event){
-    event.preventDefault();
 
-    const count = event.target[0].value;
-    const duration = event.target[1].value;
-    const activityId = event.target[2].value;
-    const response = await addActivityToRoutine(activityId, count, duration, routineId)
-    navigate(`/myroutines`);
-
-  }
   async function handleUpdateRoutine(event) {
     event.preventDefault();
     setShowActivities(false)
@@ -38,6 +31,7 @@ const EachRoutine = () => {
   async function handleUpdateActivity(event) {
     event.preventDefault();
     setShowActivities(false)
+    setUpdateActivity(true)
   }
   async function handleDeleteAcitivity(event) {
     event.preventDefault();
@@ -46,6 +40,33 @@ const EachRoutine = () => {
   async function handleDeleteRoutine(event) {
     event.preventDefault();
     setShowActivities(false)
+  }
+
+  async function handleSubmitActivity(event){
+    event.preventDefault();
+    const count = event.target[0].value;
+    const duration = event.target[1].value;
+    const activityId = event.target[2].value;
+    const response = await addActivityToRoutine(activityId, count, duration, routineId)
+    navigate(`/myroutines`);
+
+  }
+
+  async function handleSubmitUpdateRoutine(event){
+    event.preventDefault();
+    const name = event.target[0].value;
+    const goal = event.target[1].value;
+    const response = await updateSingleRoutine(name, goal, routineId, token)
+    navigate(`/myroutines`);
+  }
+
+  async function handleSubmitUpdateActivity(event){
+    event.preventDefault();
+    const count = event.target[0].value;
+    const duration = event.target[1].value;
+    const routineActivityId = event.target[2].value;
+    const result = await updateSingleRoutineActivity(count, duration, routineActivityId, token)
+    navigate(`/myroutines`);
   }
 
   useEffect(() => {
@@ -198,6 +219,71 @@ const EachRoutine = () => {
           <div className="col-auto">
             <button type="submit" className="btn btn-primary mb-3">
               Add Activity
+            </button>
+          </div>
+        </form>
+      )}
+      {updateRoutine && (
+        <form className="row g-3 justify-content-center" style={{marginTop: "1rem" }} onSubmit={handleSubmitUpdateRoutine}>
+          <div className="col-auto ">
+            <input
+              type="text"
+              className="form-control"
+              id="inputtext1"
+              placeholder="Name"
+            />
+          </div>
+          <div className="col-auto">
+            <input
+              type="text"
+              className="form-control"
+              id="inputtext2"
+              placeholder="Goal"
+            />
+          </div>
+
+          <div className="col-auto">
+            <button type="submit" className="btn btn-primary mb-3">
+              Update Routine
+            </button>
+          </div>
+        </form>
+      )}
+      {updateActivity && (
+        <form className="row g-3 justify-content-center" style={{marginTop: "1rem" }} onSubmit={handleSubmitUpdateActivity}>
+          <div className="col-auto ">
+            <input
+              type="text"
+              className="form-control"
+              id="inputtext1"
+              placeholder="Count"
+
+            />
+          </div>
+          <div className="col-auto">
+            <input
+              type="text"
+              className="form-control"
+              id="inputtext2"
+              placeholder="Duration"
+            />
+          </div>
+          <div className="col-auto">
+          <select  className="form-select">
+            <option defaultValue>Choose Activity</option>
+              {currentActivities.map((activity, idx) => {
+                return (
+                  <option  key={idx} value={activity.routineActivityId}>
+                      {activity.name}
+                  </option>
+                );
+              })}
+            </select>
+            </div>
+
+          <div className="col-auto">
+            <button type="submit" className="btn btn-primary mb-3">
+              Update Activity
             </button>
           </div>
         </form>

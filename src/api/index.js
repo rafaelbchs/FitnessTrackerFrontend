@@ -121,3 +121,43 @@ export async function addActivityToRoutine(activityId, count, duration, routineI
     console.error(error)
   }
 }
+
+export async function updateSingleRoutine(name, goal, routineId, token){
+  try {
+    const response = await fetch(`http://fitnesstrac-kr.herokuapp.com/api/routines/${routineId}`, {
+  method: "PATCH",
+  headers: {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${token}`
+  },
+  body: JSON.stringify({
+    name: name,
+    goal: goal
+  })
+})
+  const result = response.json()
+  return result
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export async function updateSingleRoutineActivity(count, duration, routineActivityId, token){
+  try {
+    const response = await fetch(`${BASE}routine_activities/${routineActivityId}`, {
+  method: "PATCH",
+  headers: {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${token}`
+  },
+  body: JSON.stringify({
+    count: count,
+    duration: duration
+  })
+})
+  const result = response.json()
+  return result
+  } catch (error) {
+    console.error(error)
+  }
+}
