@@ -74,3 +74,17 @@ export async function createRoutine(name, goal, isPublic, token){
     console.error(error)
   }
 }
+
+export async function getPublicRoutinesByUser(username, token){
+  try {
+    const response = await fetch(`${BASE}users/${username}/routines`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      }})
+      const result = response.json()
+      return result
+  } catch (error) {
+    console.error(error)
+  }
+}

@@ -8,7 +8,6 @@ const Routines = () => {
     async function getData() {
       const data = await getPublicRoutines();
       setData(data);
-      console.log(data);
     }
     getData();
   }, []);

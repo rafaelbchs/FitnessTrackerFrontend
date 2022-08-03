@@ -1,9 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { createRoutine } from "../api";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import { getPublicRoutinesByUser } from "../api";
 
 const MyRoutines = () => {
     let navigate = useNavigate();
+    const [MyRoutines, setMyRoutines] = useState([])
+    const {username} = JSON.parse(localStorage.getItem("user"))
+    const token = localStorage.getItem("token")
+
+    useEffect(() => {
+      async function getData() {
+        const data = await getPublicRoutinesByUser(username, token);
+        setMyRoutines(data) 
+        console.log(data)
+      }
+      getData();
+    }, []);  
     function handleSubmit(event){
     event.preventDefault();
     const name = event.target[0].value;
@@ -15,14 +28,9 @@ const MyRoutines = () => {
     navigate("/");
     }
 
-    return (
+    return ( <>
         <div
-        style={{
-          backgroundImage:
-            'url("https://images.pexels.com/photos/703012/pexels-photo-703012.jpeg?auto=compress&cs=tinysrgb&w=2300")',
-          minHeight: "1000px",
-          minWidth: "1000px",
-        }}
+        
       >
         <form
           onSubmit={handleSubmit}
@@ -78,6 +86,29 @@ const MyRoutines = () => {
           </div>
         </form>
       </div>
+      <h4 style={{ paddingLeft: "2rem" }}>My Routines</h4>
+      <div className="list-group">
+        {
+          MyRoutines.map((routine, idx) => {
+            return (
+              <div key={idx}>
+                <Link
+                to={`/myroutines/${routine.creatorId}/${routine.id}`}
+                className="list-group-item list-group-item-action"
+                aria-current="true"
+                state={{ routine: routine}}
+              >
+                <div className="d-flex w-100 justify-content-between">
+                  <h5 className="mb-1"> {routine.name}</h5>
+                </div>
+                <p className="mb-1">{routine.goal}</p>
+              </Link>
+              </div>
+            )
+          })
+        }
+      </div>
+      </>
     )
 }
 

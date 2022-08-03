@@ -39,6 +39,11 @@ const App = () => {
             element={<MyRoutines/>}
         />
         </Route>
+        <Route 
+            path="/myroutines/:creatorId/:routineId"
+            element={<MyRoutines />}
+        />
+
       </Routes>
     </BrowserRouter>
   );
