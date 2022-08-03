@@ -2,9 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import { addActivityToRoutine, getAllActivities } from "../api";
 
-
-
-
 const EachRoutine = () => {
   let navigate = useNavigate();
   const location = useLocation();
@@ -15,14 +12,17 @@ const EachRoutine = () => {
   const [updateActivity, setUpdateActivity] = useState(false);
   const [deleteActivity, setDeleteActivity] = useState(false);
   const [deleteRoutine, setDeleteRoutine] = useState(false);
+  const [showActivities, setShowActivities] = useState(true);
   const routineId = routine.id
-
+  const currentActivities = routine.activities
   async function handleAddActivity(event) {
     event.preventDefault();
     setAddActivity(true);
+    setShowActivities(false)
   }
   async function handleSubmitActivity(event){
     event.preventDefault();
+
     const count = event.target[0].value;
     const duration = event.target[1].value;
     const activityId = event.target[2].value;
@@ -32,15 +32,20 @@ const EachRoutine = () => {
   }
   async function handleUpdateRoutine(event) {
     event.preventDefault();
+    setShowActivities(false)
+    setUpdateRoutine(true)
   }
   async function handleUpdateActivity(event) {
     event.preventDefault();
+    setShowActivities(false)
   }
   async function handleDeleteAcitivity(event) {
     event.preventDefault();
+    setShowActivities(false)
   }
   async function handleDeleteRoutine(event) {
     event.preventDefault();
+    setShowActivities(false)
   }
 
   useEffect(() => {
@@ -117,8 +122,47 @@ const EachRoutine = () => {
             </div>
           </div>
           <p className="mb-1">{routine.goal}</p>
+          
         </a>
       </div>
+      {
+        showActivities ? ( <>
+          <h4 className="mb-1" style={{ paddingLeft: "2rem", marginTop: "1rem" }}>
+            Activities
+          </h4>
+          <div className="list-group">
+
+          {
+            currentActivities.length === 0 ? (
+              <p style={{ marginLeft: "2rem" }}>This routine doesn't have any activities</p>
+            ) : null
+          }
+          {
+            currentActivities.map((activity, idx) => {
+              return (
+              <div key={idx}>
+              <a
+                className="list-group-item list-group-item-action"
+                aria-current="true"
+              >
+                <div className="d-flex w-100 justify-content-between">
+                  <h5>Set: {activity.name}</h5>
+                </div>
+                <p>
+                 {activity.count} reps
+                </p>
+                <p>
+                  For {activity.duration} seconds
+                </p>
+              </a>
+            </div>
+              )
+            })
+          }
+          </div>
+        </>):null
+      }
+      
       {addActivity && (
         <form className="row g-3 justify-content-center" style={{marginTop: "1rem" }} onSubmit={handleSubmitActivity}>
           <div className="col-auto ">
@@ -127,6 +171,7 @@ const EachRoutine = () => {
               className="form-control"
               id="inputtext1"
               placeholder="Count"
+
             />
           </div>
           <div className="col-auto">
