@@ -13,19 +13,17 @@ const MyRoutines = () => {
       async function getData() {
         const data = await getPublicRoutinesByUser(username, token);
         setMyRoutines(data) 
-        console.log(data)
       }
       getData();
     }, []);  
-    function handleSubmit(event){
+    async function handleSubmit(event){
     event.preventDefault();
     const name = event.target[0].value;
     const goal = event.target[1].value;
     const isPublic = event.target[2].checked
     const token = localStorage.getItem("token")
-    createRoutine(name, goal, isPublic, token)
-    alert("Your routine has been created")
-    navigate("/");
+    const response = await createRoutine(name, goal, isPublic, token)
+    navigate(`/`)
     }
 
     return ( <>
