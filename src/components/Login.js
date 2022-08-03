@@ -18,7 +18,7 @@ const Login = (props) => {
           event.target[1].value = ""
         }
         if(user){
-        localStorage.setItem("user", user)
+        localStorage.setItem("user", JSON.stringify(user))
         localStorage.setItem("token", token)
         setToken(token)
         navigate("/");

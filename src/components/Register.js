@@ -14,7 +14,7 @@ const Register = (props) => {
             return alert("Passwords do not match");
           }
           const {user , token} = await registerUser (username, password);
-        localStorage.setItem("user", user)
+        localStorage.setItem("user", JSON.stringify(user))
         localStorage.setItem("token", token)
         setToken(token) 
         navigate("/");
