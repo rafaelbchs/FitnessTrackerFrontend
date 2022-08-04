@@ -1,9 +1,11 @@
-import React from "react"
+import React, {useState} from "react"
 import { registerUser } from "../api";
 import { useNavigate } from "react-router-dom";
 
 const Register = (props) => {
     let navigate = useNavigate();
+    const [passwordError, setPasswordError] = useState(false)
+    const [userError, setUserError] = useState(false)
     const { setToken } = props;
     async function handleSubmit (event){
         event.preventDefault()
@@ -11,9 +13,16 @@ const Register = (props) => {
         const password = event.target[1].value;
         const confirmPassword = event.target[2].value;
         if (password != confirmPassword) {
-            return alert("Passwords do not match");
+            setPasswordError(true)
+            return;
           }
-          const {user , token} = await registerUser (username, password);
+        setPasswordError(false)
+        const {user , token} = await registerUser (username, password);
+        if (!user){
+          setUserError(true)
+          return;
+        }
+        setUserError(false)
         localStorage.setItem("user", JSON.stringify(user))
         localStorage.setItem("token", token)
         setToken(token) 
@@ -34,18 +43,32 @@ const Register = (props) => {
           <h2 className="fw-bold mb-5">Sign up now</h2>
           <form onSubmit={handleSubmit}>
             <div className="form-outline mb-4">
-              <input type="text" id="form3Example42" className="form-control" />
+            {
+              userError ? <input type="text" id="form3Example42" className="form-control" style={{border: "1px solid #f9030f"}}/> :               <input type="text" id="form3Example42" className="form-control" />
+            }
               <label className="form-label" htmlFor="form3Example42">Username</label>
+              {
+                userError &&  <p className="form-label" style={{color:"red", fontSize: ".8rem"}}>Username already exists</p>
+              }
             </div>
 
-            <div className="form-outline mb-4">
-              <input type="password" id="form3Example4" className="form-control" />
+            <div className="form-outline mb-4" >
+            {
+              passwordError ? <input type="password" id="form3Example4" className="form-control" style={{border: "1px solid #f9030f"}}/> : <input type="password" id="form3Example4" className="form-control" />
+            }
               <label className="form-label" htmlFor="form3Example4">Password</label>
             </div>
 
             <div className="form-outline mb-4">
-              <input type="password" id="form3Example44" className="form-control" />
-              <label className="form-label" htmlFor="form3Example44">Confirm Password</label>
+            
+            {
+              passwordError ? <input type="password" id="form3Example44" className="form-control" style={{border: "1px solid #f9030f"}}/> : <input type="password" id="form3Example4" className="form-control" />
+            }
+            <label className="form-label" htmlFor="form3Example44">Confirm Password</label>
+              {
+                passwordError &&  <p className="form-label" style={{color:"red", fontSize: ".8rem"}}>Passwords do not Match</p>
+              }
+             
             </div>
 
             <div className="form-check d-flex justify-content-center mb-4">
