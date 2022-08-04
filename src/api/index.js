@@ -194,3 +194,23 @@ export async function submitDeleteRoutine(routineId, token){
   }
 }
 
+export async function createActivity(name, description, token){
+  try {
+    const response = await fetch(`${BASE}activities`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      method: "POST",
+      body: JSON.stringify({
+        name: name,
+        description: description
+      })
+    })
+    const result = response.json()
+    return result
+  } catch (error) {
+    console.error(error)
+    
+  }
+}
