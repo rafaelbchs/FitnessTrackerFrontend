@@ -214,3 +214,15 @@ export async function createActivity(name, description, token){
     
   }
 }
+export async function getPublicRoutinesByUserUn(username){
+  try {
+    const response = await fetch(`${BASE}users/${username}/routines`, {
+      headers: {
+        'Content-Type': 'application/json'
+      }})
+      const result = response.json()
+      return result
+  } catch (error) {
+    console.error(error)
+  }
+}
