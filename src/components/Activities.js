@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { createActivity, getAllActivities } from "../api";
+import { useNavigate, Link } from "react-router-dom";
+import { createActivity, getAllActivities, updateSingleActivity } from "../api";
 
 const Activities = () => {
   let navigate = useNavigate();
@@ -9,21 +9,34 @@ const Activities = () => {
   const [errorAddActivity, setErrorAddActivity] = useState(false);
   const [showAllActivities, setShowAllActivities] = useState(true);
   const [addNewActivity, setAddNewActivity] = useState(false);
+  const [updateAnActivity, setUpdateAnActivity] = useState(false);
   const [successAddingActivity, setSucessAddingActivity] = useState(false);
+  const [chosenActivityId, setChosenActivityId] = useState("")
+  const [successUpdating, setSuccessUpdating] = useState(false)
 
   async function handleSucess(event) {
     event.preventDefault();
     setSucessAddingActivity(false);
+  }
+  async function handleSucessUpdate(event) {
+    event.preventDefault();
+    setSuccessUpdating(false);
   }
   async function handleError(event) {
     event.preventDefault();
     setErrorAddActivity(false);
   }
 
-  async function handleClick(event) {
+  async function handleAddAnActivity(event) {
     event.preventDefault();
     setShowAllActivities(false);
     setAddNewActivity(true);
+  }
+
+  async function handleUpdateAnActivity(event) {
+    event.preventDefault();
+    setShowAllActivities(false);
+    setUpdateAnActivity(true);
   }
 
   async function handleSubmitActivity(event) {
@@ -35,11 +48,28 @@ const Activities = () => {
       setErrorAddActivity(true);
       return;
     }
-    setErrorAddActivity(false)
+    setErrorAddActivity(false);
     navigate("/activities");
     setShowAllActivities(true);
     setAddNewActivity(false);
-    setSucessAddingActivity(true)
+    setSucessAddingActivity(true);
+  }
+  function onChangeHandler(e) {
+    const index = e.target.selectedIndex;
+    const el = e.target.childNodes[index];
+    const option = el.getAttribute("id");
+    setChosenActivityId(option)
+  }
+  async function handleSubmitUpdateAnActivity(event) {
+    event.preventDefault();
+    const name = event.target[0].value;
+    const description = event.target[1].value;
+    const response = await updateSingleActivity(name, description, chosenActivityId, token)
+    if (!response.error){
+        setSuccessUpdating(true)
+    }
+    event.target[0].value = "Choose Activity"
+    event.target[1].value = ""
   }
 
   useEffect(() => {
@@ -55,13 +85,36 @@ const Activities = () => {
       <div className="d-flex" style={{ marginTop: "4rem", marginLeft: "2rem" }}>
         <h3 className="me-auto">Activities</h3>
         {token && (
-          <button
-            type="button"
-            className="btn btn-secondary btn-sm mb-3 me-5"
-            onClick={handleClick}
-          >
-            Create new
-          </button>
+          <div>
+            <button
+              className="btn btn-secondary dropdown-toggle btn-sm mb-3 me-5"
+              type="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Settings
+            </button>
+            <ul className="dropdown-menu">
+              <li>
+                <a
+                  className="dropdown-item"
+                  href=""
+                  onClick={handleAddAnActivity}
+                >
+                  Create New Activity
+                </a>
+              </li>
+              <li>
+                <a
+                  className="dropdown-item"
+                  href=""
+                  onClick={handleUpdateAnActivity}
+                >
+                  Update an Activity
+                </a>
+              </li>
+            </ul>
+          </div>
         )}
       </div>
       {errorAddActivity && (
@@ -78,6 +131,46 @@ const Activities = () => {
           ></button>
         </div>
       )}
+      {successUpdating && (
+        <div
+          className="alert alert-success text-center w-50 mx-auto"
+          role="alert"
+        >
+          The description has been updated!
+          <button
+            type="button"
+            className="btn-close ms-5"
+            aria-label="Close"
+            onClick={handleSucessUpdate}
+          ></button>
+        </div>
+      )}
+      {showAllActivities && (
+        <div className="list-group">
+          {allActivities.map((activity, idx) => {
+            return (
+              <div key={idx}>
+                <div
+                  aria-current="true"
+                  className="list-group-item list-group-item-action"
+                >
+                  <div className="d-flex w-100 justify-content-between">
+                    <h5 className="mb-1">
+                      <Link
+                        style={{ textDecoration: "none" }}
+                        to={`/activities/${activity.id}/${activity.name}`}
+                      >
+                        {activity.name}
+                      </Link>
+                    </h5>
+                  </div>
+                  <p className="mb-1">{activity.description}</p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
       {successAddingActivity && (
         <div
           className="alert alert-success text-center w-25 mx-auto"
@@ -92,24 +185,47 @@ const Activities = () => {
           ></button>
         </div>
       )}
-      {showAllActivities && (
-        <div className="list-group">
-          {allActivities.map((activity, idx) => {
-            return (
-              <div key={idx}>
-                <a
-                  aria-current="true"
-                  className="list-group-item list-group-item-action"
-                >
-                  <div className="d-flex w-100 justify-content-between">
-                    <h5 className="mb-1">{activity.name}</h5>
-                  </div>
-                  <p className="mb-1">{activity.description}</p>
-                </a>
-              </div>
-            );
-          })}
-        </div>
+      {updateAnActivity && (
+        <form
+          className="row g-3 justify-content-center"
+          style={{ marginTop: "1rem" }}
+          onSubmit={handleSubmitUpdateAnActivity}
+        >
+          <div className="col-auto">
+            <select className="form-select"
+            onChange={onChangeHandler}
+            >
+              <option defaultValue>Choose Activity</option>
+              {
+                allActivities.map((activity, idx) => {
+                  return (
+                    <option
+                      key={idx}
+                      value={activity.name}
+                      id={activity.id}
+                    >
+                      {activity.name}
+                    </option>
+                  );
+                })
+              }
+            </select>
+          </div>
+          <div className="col-auto">
+            <input
+              type="text"
+              className="form-control"
+              id="inputtext22"
+              placeholder="Description"
+            />
+          </div>
+
+          <div className="col-auto">
+            <button type="submit" className="btn btn-primary mb-3">
+              Update Activity
+            </button>
+          </div>
+        </form>
       )}
 
       {addNewActivity && (

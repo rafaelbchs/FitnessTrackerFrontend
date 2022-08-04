@@ -47,7 +47,7 @@ const Routines = () => {
                 <div className="col-sm-6">
                   <div className="card">
                     <h5 className="card-header">
-                      Made by <Link to = {`/routines/${routine.creatorName}`}>{routine.creatorName}</Link>
+                      Made by <Link style={{textDecoration: "none"}} to={`/routines/${routine.creatorName}`}>{routine.creatorName}</Link>
                     </h5>
                     <div className="card-body">
                       <h5 className="card-title">{routine.name}</h5>

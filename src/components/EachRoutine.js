@@ -22,7 +22,11 @@ const EachRoutine = () => {
   const [showActivities, setShowActivities] = useState(true);
   const routineId = routine.id;
   const currentActivities = routine.activities;
+  const namesOfAllActivities = []
+  currentActivities.forEach((element)=>{namesOfAllActivities.push(element.name)})
   const token = localStorage.getItem("token");
+
+  let activityNames = [];
 
   async function handleAddActivity(event) {
     event.preventDefault();
@@ -107,6 +111,7 @@ const EachRoutine = () => {
     }
     getData();
   }, []);
+
 
   return (
     <>
@@ -197,7 +202,8 @@ const EachRoutine = () => {
                 This routine doesn't have any activities
               </p>
             ) : null}
-            {currentActivities.map((activity, idx) => {
+            { 
+              currentActivities.map((activity, idx) => {
               return (
                 <div key={idx}>
                   <a
@@ -242,7 +248,11 @@ const EachRoutine = () => {
           <div className="col-auto">
             <select className="form-select">
               <option defaultValue>Choose Activity</option>
-              {activities.map((activity, idx) => {
+              {
+                activities.map((activity, idx) => {
+                  if (namesOfAllActivities.includes(activity.name)){
+                    return;
+                  }
                 return (
                   <option key={idx} value={activity.id}>
                     {activity.name}
