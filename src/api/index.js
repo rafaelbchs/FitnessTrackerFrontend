@@ -240,3 +240,23 @@ export async function getRoutinesByActivityId(activityId){
     console.error(error)
   }
 }
+
+export async function updateSingleActivity(name, description, activityId, token){
+ try {
+    const response = await fetch(`${BASE}activities/${activityId}`, {
+      method: "PATCH",
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        name: name,
+        description: description
+      })
+    })
+    const result = response.json()
+    return result
+  } catch (error) {
+    console.error(error)
+  }
+}

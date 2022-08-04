@@ -22,14 +22,14 @@ const ActivitiesByName = () => {
         <div className="card">
           {routinesByActivity.map((routine, idx) => {
             return (
-              <>
-                <div className="card-header" key={idx}>
-                  Name: {routine.name}
+              <div key={idx}>
+                <div className="card-header" >
+                  <h5>{routine.name}</h5>
                 </div>
                 <div className="card-body">
-                  <p className="card-text">Goal: {routine.goal}</p>
+                  <p className="card-text">{routine.goal}</p>
                 </div>
-              </>
+              </div>
             );
           })}
         </div>

@@ -10,16 +10,16 @@ const RoutineActivities = () => {
       <div className="card">
         {activities.map((activity, idx) => {
           return (
-            <>
-              <div className="card-header" key={idx}>
-                Name: <Link to={`/activities/${activity.id}/${activity.name}`}>{activity.name}</Link>
+            <div key={idx}>
+              <div className="card-header" >
+                <b><Link style={{textDecoration: "none", letterSpacing: "1px"}} to={`/activities/${activity.id}/${activity.name}`}>{activity.name}</Link></b>
               </div>
               <div className="card-body">
-                <h5 className="card-title">Duration: {activity.duration}</h5>
-                <h5 className="card-title">Count: {activity.count}</h5>
-                <p className="card-text">Description: {activity.description}</p>
+                <p className="card-title">{activity.duration} seconds</p>
+                <p className="card-title">{activity.count} reps</p>
+                <p className="card-text" style={{fontWeight: "bold"}}>{activity.description}</p>
               </div>
-            </>
+            </div>
           );
         })}
       </div>
