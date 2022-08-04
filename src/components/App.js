@@ -7,6 +7,7 @@ import Routines from "./Routines";
 import RoutineActivities from "./RoutineActivities";
 import MyRoutines from "./MyRoutines";
 import EachRoutine from "./EachRoutine";
+import Activities from "./Activities"
 
 const App = () => {
   const [token, setToken] = useState("");
@@ -43,7 +44,10 @@ const App = () => {
             path="/myroutines/:creatorId/:routineId"
             element={<EachRoutine />}
         />
-
+        <Route 
+            path="/activities"
+            element={<Activities />}
+        />
         </Route>
 
 
