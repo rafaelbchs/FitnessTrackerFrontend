@@ -226,3 +226,17 @@ export async function getPublicRoutinesByUserUn(username){
     console.error(error)
   }
 }
+
+export async function getRoutinesByActivityId(activityId){
+  try {
+    const response = await fetch(`${BASE}activities/${activityId}/routines`, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    const result = response.json()
+    return result
+  } catch (error) {
+    console.error(error)
+  }
+}

@@ -9,6 +9,7 @@ import MyRoutines from "./MyRoutines";
 import EachRoutine from "./EachRoutine";
 import Activities from "./Activities"
 import RoutinesByUser from "./RoutinesByUser";
+import ActivitiesByName from "./ActivitiesByName";
 
 const App = () => {
   const [token, setToken] = useState("");
@@ -52,6 +53,10 @@ const App = () => {
         <Route 
             path="/routines/:creatorName"
             element={<RoutinesByUser />}
+        />
+        <Route 
+            path="/activities/:activityId/:activityName"
+            element={<ActivitiesByName />}
         />
         </Route>
 

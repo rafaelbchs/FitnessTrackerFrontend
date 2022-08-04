@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 
 const RoutineActivities = () => {
   const location = useLocation();
@@ -12,7 +12,7 @@ const RoutineActivities = () => {
           return (
             <>
               <div className="card-header" key={idx}>
-                Name: {activity.name}
+                Name: <Link to={`/activities/${activity.id}/${activity.name}`}>{activity.name}</Link>
               </div>
               <div className="card-body">
                 <h5 className="card-title">Duration: {activity.duration}</h5>
