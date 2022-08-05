@@ -10,6 +10,7 @@ import EachRoutine from "./EachRoutine";
 import Activities from "./Activities"
 import RoutinesByUser from "./RoutinesByUser";
 import ActivitiesByName from "./ActivitiesByName";
+import Home from "./Home"
 
 const App = () => {
   const [token, setToken] = useState("");
@@ -20,7 +21,10 @@ const App = () => {
             path="/"
             element={<Navbar token={token} setToken={setToken} />}
         >
-
+        <Route
+            path="/"
+            element={<Home />}
+        />
         <Route 
             path="/login" 
             element={<Login setToken={setToken} />} 
