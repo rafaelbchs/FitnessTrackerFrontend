@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { createActivity, getAllActivities, updateSingleActivity } from "../api";
-import PaginationActivities from "./PaginationActivities";
+import Pagination from "./Pagination";
 
 const Activities = () => {
   let navigate = useNavigate();
@@ -15,21 +15,13 @@ const Activities = () => {
   const [chosenActivityId, setChosenActivityId] = useState("");
   const [successUpdating, setSuccessUpdating] = useState(false);
 
-  // User is currently on this page
-  const [currentPageActivity, setCurrentPageActivity] = useState(1);
-  // No of Records to be displayed on each page
-  const [recordsPerPage] = useState(30);
 
-  const indexOfLastRecord = currentPageActivity * recordsPerPage;
-  const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
-
-  // Records to be displayed on the current page
-  const currentRecords = allActivities.slice(
-    indexOfFirstRecord,
-    indexOfLastRecord
-  );
-
-  const nPages = Math.ceil(allActivities.length / recordsPerPage);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [recordsPerPage] = useState(30);
+    const indexOfLastRecord = currentPage * recordsPerPage;
+    const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
+    const currentRecords = allActivities.slice(indexOfFirstRecord, indexOfLastRecord);
+    const nPages = Math.ceil(allActivities.length / recordsPerPage);
 
   async function handleSucess(event) {
     event.preventDefault();
@@ -139,10 +131,10 @@ const Activities = () => {
           </div>
         )}
       </div>
-      <PaginationActivities
+      <Pagination
         nPages={nPages}
-        currentPageActivity={currentPageActivity}
-        setCurrentPageActivity={setCurrentPageActivity}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
       />
       {errorAddActivity && (
         <div
@@ -198,10 +190,10 @@ const Activities = () => {
           })}
         </div>
       )}
-      <PaginationActivities
+      <Pagination
         nPages={nPages}
-        currentPageActivity={currentPageActivity}
-        setCurrentPageActivity={setCurrentPageActivity}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
       />
       {successAddingActivity && (
         <div

@@ -8,3 +8,5 @@ export { default as EachRoutine } from "./EachRoutine";
 export { default as Activities } from "./Activities";
 export { default as RoutinesByUser } from "./RoutinesByUser";
 export { default as Home } from "./Home";
+export { default as NotFoundPage } from "./NotFoundPage"
+export { default as LoadingScreen } from "./LoadingScreen"

@@ -16,8 +16,13 @@ const ActivitiesByName = () => {
   return (
     <>
       <h3 style={{ marginTop: "4rem", marginLeft: "2rem" }}>
-        Routines that have the activity of {activityName}
+        Routines that include the activity of {activityName}
       </h3>
+      {routinesByActivity.length === 0 ? (
+              <p style={{ marginLeft: "2rem" }}>
+                No routines include this activity
+              </p>
+            ) : null}
       {routinesByActivity && (
         <div className="card">
           {routinesByActivity.map((routine, idx) => {

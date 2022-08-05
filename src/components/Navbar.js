@@ -63,7 +63,7 @@ const Navbar = (props) => {
                     <div>
                       <span className="nav-item">
                         <a className="nav-link" onClick={handleLogout}>
-                          Current user: {JSON.parse(user).username}
+                          Logged in as: {JSON.parse(user).username}
                         </a>
                       </span>
                     </div>

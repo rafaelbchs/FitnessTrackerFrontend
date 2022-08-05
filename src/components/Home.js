@@ -20,7 +20,7 @@ const Home = () => {
                 <div className="col-lg-6">
                   <div className="text-center my-5">
                     <h1 className="display-5 fw-bolder text-white mb-2">
-                      Best Fitness Tracker App in NA
+                      Fitness Tracker App
                     </h1>
                     <p className="lead text-white mb-4">
                       Join today to get a kick-start on your journey to fitness!

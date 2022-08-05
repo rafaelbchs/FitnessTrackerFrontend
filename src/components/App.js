@@ -11,6 +11,7 @@ import Activities from "./Activities";
 import RoutinesByUser from "./RoutinesByUser";
 import ActivitiesByName from "./ActivitiesByName";
 import Home from "./Home";
+import NotFoundPage from "./NotFoundPage";
 
 const App = () => {
   const [token, setToken] = useState("");
@@ -37,7 +38,9 @@ const App = () => {
             path="/activities/:activityId/:activityName"
             element={<ActivitiesByName />}
           />
+        <Route path="*" element={<NotFoundPage />} />
         </Route>
+
       </Routes>
     </BrowserRouter>
   );

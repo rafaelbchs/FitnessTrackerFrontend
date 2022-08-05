@@ -2,21 +2,17 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { getPublicRoutines } from "../api";
 import Pagination from "./Pagination";
+import LoadingScreen from "./LoadingScreen";
 
 const Routines = () => {
   const [data, setData] = useState("");
+  const [loading, setLoading] = useState(true)
 
-  // User is currently on this page
   const [currentPage, setCurrentPage] = useState(1);
-  // No of Records to be displayed on each page
   const [recordsPerPage] = useState(30);
-
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
-
-  // Records to be displayed on the current page
   const currentRecords = data.slice(indexOfFirstRecord, indexOfLastRecord);
-
   const nPages = Math.ceil(data.length / recordsPerPage);
 
   useEffect(() => {
@@ -25,9 +21,12 @@ const Routines = () => {
       setData(data);
     }
     getData();
+    setTimeout(() => setLoading(false), 2000)
   }, []);
 
   return (
+    <>
+    {loading === false ? 
     <div
       style={{
         backgroundColor: "#bdc0c7",
@@ -39,6 +38,7 @@ const Routines = () => {
         marginTop: "3rem",
       }}
     >
+
       <Pagination
         nPages={nPages}
         currentPage={currentPage}
@@ -90,7 +90,10 @@ const Routines = () => {
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
       />
-    </div>
+          </div>
+       : <LoadingScreen />
+      }
+</>
   );
 };
 

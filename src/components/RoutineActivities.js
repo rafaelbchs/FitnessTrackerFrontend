@@ -8,6 +8,11 @@ const RoutineActivities = () => {
     <>
       <h3 style={{ marginTop: "4rem", marginLeft: "2rem" }}>Activities</h3>
       <div className="card">
+      {activities.length === 0 ? (
+              <p style={{ marginLeft: "2rem" }}>
+                This activity is not included in any routine
+              </p>
+            ) : null}
         {activities.map((activity, idx) => {
           return (
             <div key={idx}>
