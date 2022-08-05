@@ -6,7 +6,7 @@ import {
   getAllActivities,
   updateSingleRoutine,
   updateSingleRoutineActivity,
-  submitDeleteRoutine
+  submitDeleteRoutine,
 } from "../api";
 
 const EachRoutine = () => {
@@ -22,8 +22,10 @@ const EachRoutine = () => {
   const [showActivities, setShowActivities] = useState(true);
   const routineId = routine.id;
   const currentActivities = routine.activities;
-  const namesOfAllActivities = []
-  currentActivities.forEach((element)=>{namesOfAllActivities.push(element.name)})
+  const namesOfAllActivities = [];
+  currentActivities.forEach((element) => {
+    namesOfAllActivities.push(element.name);
+  });
   const token = localStorage.getItem("token");
 
   let activityNames = [];
@@ -32,27 +34,47 @@ const EachRoutine = () => {
     event.preventDefault();
     setAddActivity(true);
     setShowActivities(false);
+    setUpdateRoutine(false);
+    setUpdateActivity(false);
+    setDeleteRoutine(false);
+    setDeleteActivity(false);
   }
 
   async function handleUpdateRoutine(event) {
     event.preventDefault();
     setShowActivities(false);
     setUpdateRoutine(true);
+    setAddActivity(false);
+    setUpdateActivity(false);
+    setDeleteRoutine(false);
+    setDeleteActivity(false);
   }
   async function handleUpdateActivity(event) {
     event.preventDefault();
     setShowActivities(false);
     setUpdateActivity(true);
+    setUpdateRoutine(false);
+    setAddActivity(false);
+    setDeleteRoutine(false);
+    setDeleteActivity(false);
   }
   async function handleDeleteActivity(event) {
     event.preventDefault();
     setShowActivities(false);
     setDeleteActivity(true);
+    setUpdateActivity(false);
+    setUpdateRoutine(false);
+    setAddActivity(false);
+    setDeleteRoutine(false);
   }
   async function handleDeleteRoutine(event) {
     event.preventDefault();
     setShowActivities(false);
     setDeleteRoutine(true);
+    setDeleteActivity(false);
+    setUpdateActivity(false);
+    setUpdateRoutine(false);
+    setAddActivity(false);
   }
 
   async function handleSubmitActivity(event) {
@@ -98,9 +120,9 @@ const EachRoutine = () => {
     navigate("/myroutines");
   }
 
-  async function handleSubmitDeleteRoutine(event){
+  async function handleSubmitDeleteRoutine(event) {
     event.preventDefault();
-    const result = await submitDeleteRoutine(routineId, token)
+    const result = await submitDeleteRoutine(routineId, token);
     navigate("/myroutines");
   }
 
@@ -112,7 +134,6 @@ const EachRoutine = () => {
     getData();
   }, []);
 
-
   return (
     <>
       <h4 style={{ paddingLeft: "2rem", marginTop: "4rem" }}>My Routine</h4>
@@ -121,11 +142,15 @@ const EachRoutine = () => {
           <div className="d-flex w-100 justify-content-between">
             <h5 className="mb-1">{routine.name}</h5>
             <div className="dropdown">
-            {deleteRoutine && (
-          <button type="submit" className="btn btn-danger me-3 btn-sm" onClick={handleSubmitDeleteRoutine}>
-            Delete Routine
-          </button>
-      )}
+              {deleteRoutine && (
+                <button
+                  type="submit"
+                  className="btn btn-danger me-3 btn-sm"
+                  onClick={handleSubmitDeleteRoutine}
+                >
+                  Delete Routine
+                </button>
+              )}
               <button
                 className="btn btn-secondary dropdown-toggle btn-sm"
                 type="button"
@@ -181,12 +206,10 @@ const EachRoutine = () => {
                   </a>
                 </li>
               </ul>
-              
             </div>
           </div>
           <p className="mb-1">{routine.goal}</p>
         </div>
-        
       </div>
       {showActivities ? (
         <>
@@ -202,8 +225,7 @@ const EachRoutine = () => {
                 This routine doesn't have any activities
               </p>
             ) : null}
-            { 
-              currentActivities.map((activity, idx) => {
+            {currentActivities.map((activity, idx) => {
               return (
                 <div key={idx}>
                   <a
@@ -248,11 +270,10 @@ const EachRoutine = () => {
           <div className="col-auto">
             <select className="form-select">
               <option defaultValue>Choose Activity</option>
-              {
-                activities.map((activity, idx) => {
-                  if (namesOfAllActivities.includes(activity.name)){
-                    return;
-                  }
+              {activities.map((activity, idx) => {
+                if (namesOfAllActivities.includes(activity.name)) {
+                  return;
+                }
                 return (
                   <option key={idx} value={activity.id}>
                     {activity.name}
