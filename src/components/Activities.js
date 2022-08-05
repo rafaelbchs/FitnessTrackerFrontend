@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { createActivity, getAllActivities, updateSingleActivity } from "../api";
+import PaginationActivities from "./PaginationActivities";
 
 const Activities = () => {
   let navigate = useNavigate();
@@ -11,8 +12,24 @@ const Activities = () => {
   const [addNewActivity, setAddNewActivity] = useState(false);
   const [updateAnActivity, setUpdateAnActivity] = useState(false);
   const [successAddingActivity, setSucessAddingActivity] = useState(false);
-  const [chosenActivityId, setChosenActivityId] = useState("")
-  const [successUpdating, setSuccessUpdating] = useState(false)
+  const [chosenActivityId, setChosenActivityId] = useState("");
+  const [successUpdating, setSuccessUpdating] = useState(false);
+
+  // User is currently on this page
+  const [currentPageActivity, setCurrentPageActivity] = useState(1);
+  // No of Records to be displayed on each page
+  const [recordsPerPage] = useState(30);
+
+  const indexOfLastRecord = currentPageActivity * recordsPerPage;
+  const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
+
+  // Records to be displayed on the current page
+  const currentRecords = allActivities.slice(
+    indexOfFirstRecord,
+    indexOfLastRecord
+  );
+
+  const nPages = Math.ceil(allActivities.length / recordsPerPage);
 
   async function handleSucess(event) {
     event.preventDefault();
@@ -58,18 +75,23 @@ const Activities = () => {
     const index = e.target.selectedIndex;
     const el = e.target.childNodes[index];
     const option = el.getAttribute("id");
-    setChosenActivityId(option)
+    setChosenActivityId(option);
   }
   async function handleSubmitUpdateAnActivity(event) {
     event.preventDefault();
     const name = event.target[0].value;
     const description = event.target[1].value;
-    const response = await updateSingleActivity(name, description, chosenActivityId, token)
-    if (!response.error){
-        setSuccessUpdating(true)
+    const response = await updateSingleActivity(
+      name,
+      description,
+      chosenActivityId,
+      token
+    );
+    if (!response.error) {
+      setSuccessUpdating(true);
     }
-    event.target[0].value = "Choose Activity"
-    event.target[1].value = ""
+    event.target[0].value = "Choose Activity";
+    event.target[1].value = "";
   }
 
   useEffect(() => {
@@ -82,7 +104,7 @@ const Activities = () => {
 
   return (
     <>
-      <div className="d-flex" style={{ marginTop: "4rem", marginLeft: "2rem" }}>
+      <div className="d-flex" style={{ marginTop: "5rem", marginLeft: "2rem" }}>
         <h3 className="me-auto">Activities</h3>
         {token && (
           <div>
@@ -117,6 +139,11 @@ const Activities = () => {
           </div>
         )}
       </div>
+      <PaginationActivities
+        nPages={nPages}
+        currentPageActivity={currentPageActivity}
+        setCurrentPageActivity={setCurrentPageActivity}
+      />
       {errorAddActivity && (
         <div
           className="alert alert-danger text-center w-25 mx-auto"
@@ -147,7 +174,7 @@ const Activities = () => {
       )}
       {showAllActivities && (
         <div className="list-group">
-          {allActivities.map((activity, idx) => {
+          {currentRecords.map((activity, idx) => {
             return (
               <div key={idx}>
                 <div
@@ -171,6 +198,11 @@ const Activities = () => {
           })}
         </div>
       )}
+      <PaginationActivities
+        nPages={nPages}
+        currentPageActivity={currentPageActivity}
+        setCurrentPageActivity={setCurrentPageActivity}
+      />
       {successAddingActivity && (
         <div
           className="alert alert-success text-center w-25 mx-auto"
@@ -192,23 +224,15 @@ const Activities = () => {
           onSubmit={handleSubmitUpdateAnActivity}
         >
           <div className="col-auto">
-            <select className="form-select"
-            onChange={onChangeHandler}
-            >
+            <select className="form-select" onChange={onChangeHandler}>
               <option defaultValue>Choose Activity</option>
-              {
-                allActivities.map((activity, idx) => {
-                  return (
-                    <option
-                      key={idx}
-                      value={activity.name}
-                      id={activity.id}
-                    >
-                      {activity.name}
-                    </option>
-                  );
-                })
-              }
+              {allActivities.map((activity, idx) => {
+                return (
+                  <option key={idx} value={activity.name} id={activity.id}>
+                    {activity.name}
+                  </option>
+                );
+              })}
             </select>
           </div>
           <div className="col-auto">

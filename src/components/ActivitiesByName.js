@@ -23,7 +23,7 @@ const ActivitiesByName = () => {
           {routinesByActivity.map((routine, idx) => {
             return (
               <div key={idx}>
-                <div className="card-header" >
+                <div className="card-header">
                   <h5>{routine.name}</h5>
                 </div>
                 <div className="card-body">

@@ -34,24 +34,30 @@ const Login = (props) => {
   return (
     <>
       <div>
-        <section className="vh-100" style={{ backgroundImage: "url('https://images.squarespace-cdn.com/content/v1/56e487181d07c0743d227289/1591040022438-CASYOB4UBLGYQC5RTN08/Canva+-+Fitness%2C+home+workout+and+weight+training+concept.+Man+starting+to+exercise+with+dumbbell.+Water+or+protein+shake+bottle..jpg?format=2500w')" }}>
+        <section
+          className="vh-100"
+          style={{
+            backgroundImage:
+              "url('https://images.squarespace-cdn.com/content/v1/56e487181d07c0743d227289/1591040022438-CASYOB4UBLGYQC5RTN08/Canva+-+Fitness%2C+home+workout+and+weight+training+concept.+Man+starting+to+exercise+with+dumbbell.+Water+or+protein+shake+bottle..jpg?format=2500w')",
+          }}
+        >
           <div className="container py-5 h-100">
             <div className="row d-flex justify-content-center align-items-center h-100">
               <div className="col-12 col-md-8 col-lg-6 col-xl-5">
-              {loginError && (
-            <div
-              className="alert alert-danger text-center w-75 mx-auto"
-              role="alert"
-            >
-              Username or password does not match!
-              <button
-                type="button"
-                className="btn-close ms-5"
-                aria-label="Close"
-                onClick={handleError}
-              ></button>
-            </div>
-          )}
+                {loginError && (
+                  <div
+                    className="alert alert-danger text-center w-75 mx-auto"
+                    role="alert"
+                  >
+                    Username or password does not match!
+                    <button
+                      type="button"
+                      className="btn-close ms-5"
+                      aria-label="Close"
+                      onClick={handleError}
+                    ></button>
+                  </div>
+                )}
                 <form onSubmit={handleSubmit}>
                   <div
                     className="card shadow-2-strong"
@@ -78,7 +84,10 @@ const Login = (props) => {
                           className="form-control form-control-lg"
                           autoComplete="off"
                         />
-                        <label className="form-label" htmlFor="current-password">
+                        <label
+                          className="form-label"
+                          htmlFor="current-password"
+                        >
                           Password
                         </label>
                       </div>
@@ -105,7 +114,6 @@ const Login = (props) => {
                       >
                         Login
                       </button>
-
                     </div>
                   </div>
                 </form>

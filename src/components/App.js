@@ -7,64 +7,37 @@ import Routines from "./Routines";
 import RoutineActivities from "./RoutineActivities";
 import MyRoutines from "./MyRoutines";
 import EachRoutine from "./EachRoutine";
-import Activities from "./Activities"
+import Activities from "./Activities";
 import RoutinesByUser from "./RoutinesByUser";
 import ActivitiesByName from "./ActivitiesByName";
-import Home from "./Home"
+import Home from "./Home";
 
 const App = () => {
   const [token, setToken] = useState("");
   return (
     <BrowserRouter>
       <Routes>
-        <Route
-            path="/"
-            element={<Navbar token={token} setToken={setToken} />}
-        >
-        <Route
-            path="/"
-            element={<Home />}
-        />
-        <Route 
-            path="/login" 
-            element={<Login setToken={setToken} />} 
-
-        />
-        <Route 
-            path="/register" 
-            element={<Register setToken={setToken} />} 
-        />
-        <Route 
-            path="/routines" 
-            element={<Routines />} 
-        />
-        <Route 
+        <Route path="/" element={<Navbar token={token} setToken={setToken} />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login setToken={setToken} />} />
+          <Route path="/register" element={<Register setToken={setToken} />} />
+          <Route path="/routines" element={<Routines />} />
+          <Route
             path="/routines/:creatorName/:routineId"
             element={<RoutineActivities />}
-        />
-        <Route 
-            path="/myroutines"
-            element={<MyRoutines/>}
-        />
-        <Route 
+          />
+          <Route path="/myroutines" element={<MyRoutines />} />
+          <Route
             path="/myroutines/:creatorId/:routineId"
             element={<EachRoutine />}
-        />
-        <Route 
-            path="/activities"
-            element={<Activities />}
-        />
-        <Route 
-            path="/routines/:creatorName"
-            element={<RoutinesByUser />}
-        />
-        <Route 
+          />
+          <Route path="/activities" element={<Activities />} />
+          <Route path="/routines/:creatorName" element={<RoutinesByUser />} />
+          <Route
             path="/activities/:activityId/:activityName"
             element={<ActivitiesByName />}
-        />
+          />
         </Route>
-
-
       </Routes>
     </BrowserRouter>
   );

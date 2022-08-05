@@ -11,13 +11,22 @@ const RoutineActivities = () => {
         {activities.map((activity, idx) => {
           return (
             <div key={idx}>
-              <div className="card-header" >
-                <b><Link style={{textDecoration: "none", letterSpacing: "1px"}} to={`/activities/${activity.id}/${activity.name}`}>{activity.name}</Link></b>
+              <div className="card-header">
+                <b>
+                  <Link
+                    style={{ textDecoration: "none", letterSpacing: "1px" }}
+                    to={`/activities/${activity.id}/${activity.name}`}
+                  >
+                    {activity.name}
+                  </Link>
+                </b>
               </div>
               <div className="card-body">
                 <p className="card-title">{activity.duration} seconds</p>
                 <p className="card-title">{activity.count} reps</p>
-                <p className="card-text" style={{fontWeight: "bold"}}>{activity.description}</p>
+                <p className="card-text" style={{ fontWeight: "bold" }}>
+                  {activity.description}
+                </p>
               </div>
             </div>
           );
