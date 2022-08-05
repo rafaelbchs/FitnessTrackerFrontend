@@ -17,7 +17,7 @@ const Navbar = (props) => {
     <>
       <nav className="navbar navbar-expand-lg bg-light fixed-top">
         <div className="container-fluid">
-          <a className="navbar-brand" href="#">
+          <a className="navbar-brand" href="/">
             Fitness Tracker
           </a>
           <button

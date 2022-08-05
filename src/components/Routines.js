@@ -4,6 +4,7 @@ import { getPublicRoutines } from "../api";
 
 const Routines = () => {
   const [data, setData] = useState("");
+
   useEffect(() => {
     async function getData() {
       const data = await getPublicRoutines();

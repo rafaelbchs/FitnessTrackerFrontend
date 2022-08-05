@@ -2,6 +2,7 @@ import React, {useState} from "react"
 import { registerUser } from "../api";
 import { useNavigate } from "react-router-dom";
 
+
 const Register = (props) => {
     let navigate = useNavigate();
     const [shortPasswordError, setShortPasswordError] = useState(false)
