@@ -51,9 +51,9 @@ const Register = (props) => {
           <form onSubmit={handleSubmit}>
             <div className="form-outline mb-4">
             {
-              userError ? <input type="text" id="form3Example42" className="form-control" style={{border: "1px solid #f9030f"}}/> :               <input type="text" id="form3Example42" className="form-control" />
+              userError ? <input type="text" id="firstinputid" className="form-control" style={{border: "1px solid #f9030f"}} autoComplete="off"/> :               <input autoComplete="off" type="text" id="firstinputid" className="form-control" />
             }
-              <label className="form-label" htmlFor="form3Example42">Username</label>
+              <label className="form-label" htmlFor="firstinputid">Username</label>
               {
                 userError &&  <p className="form-label" style={{color:"red", fontSize: ".8rem"}}>Username already exists</p>
               }
@@ -61,15 +61,15 @@ const Register = (props) => {
 
             <div className="form-outline mb-4" >
             {
-              passwordError ? <input type="password" id="form3Example4" className="form-control" style={{border: "1px solid #f9030f"}}/> : <input type="password" id="form3Example4" className="form-control" />
+              passwordError ? <input autoComplete="off" type="password" id="secondinputid" className="form-control" style={{border: "1px solid #f9030f"}}/> : <input autoComplete="off" type="password" id="secondinputid" className="form-control" />
             }
-              <label className="form-label" htmlFor="form3Example4">Password</label>
+              <label className="form-label" htmlFor="secondinputid">Password</label>
             </div>
 
             <div className="form-outline mb-4">
             
             {
-              passwordError ? <input type="password" id="form3Example44" className="form-control" style={{border: "1px solid #f9030f"}}/> : <input type="password" id="form3Example4" className="form-control" />
+              passwordError ? <input autoComplete="off" type="password" id="form3Example44" className="form-control" style={{border: "1px solid #f9030f"}}/> : <input  autoComplete="off" type="password" id="form3Example4" className="form-control" />
             }
             <label className="form-label" htmlFor="form3Example44">Confirm Password</label>
               {
@@ -81,7 +81,7 @@ const Register = (props) => {
             </div>
 
             <div className="form-check d-flex justify-content-center mb-4">
-              <input className="form-check-input me-2" type="checkbox" value="" id="form2Example33" defaultChecked />
+              <input  autoComplete="off" className="form-check-input me-2" type="checkbox" value="" id="form2Example33" defaultChecked />
               <label className="form-check-label" htmlFor="form2Example33">
                 Subscribe to our newsletter
               </label>

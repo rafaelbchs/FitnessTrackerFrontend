@@ -34,7 +34,7 @@ const Login = (props) => {
   return (
     <>
       <div>
-        <section className="vh-100" style={{ backgroundColor: "#508bfc" }}>
+        <section className="vh-100" style={{ backgroundImage: "url('https://images.squarespace-cdn.com/content/v1/56e487181d07c0743d227289/1591040022438-CASYOB4UBLGYQC5RTN08/Canva+-+Fitness%2C+home+workout+and+weight+training+concept.+Man+starting+to+exercise+with+dumbbell.+Water+or+protein+shake+bottle..jpg?format=2500w')" }}>
           <div className="container py-5 h-100">
             <div className="row d-flex justify-content-center align-items-center h-100">
               <div className="col-12 col-md-8 col-lg-6 col-xl-5">
@@ -74,10 +74,11 @@ const Login = (props) => {
                       <div className="form-outline mb-4">
                         <input
                           type="password"
-                          id="typePasswordX-2"
+                          id="current-password"
                           className="form-control form-control-lg"
+                          autoComplete="off"
                         />
-                        <label className="form-label" htmlFor="typePasswordX-2">
+                        <label className="form-label" htmlFor="current-password">
                           Password
                         </label>
                       </div>
@@ -105,22 +106,6 @@ const Login = (props) => {
                         Login
                       </button>
 
-                      <button
-                        className="btn btn-lg btn-block btn-primary"
-                        style={{ backgroundColor: "#dd4b39" }}
-                        type="submit"
-                      >
-                        <i className="fab fa-google me-2"></i> Sign in with
-                        google
-                      </button>
-                      <button
-                        className="btn btn-lg btn-block btn-primary mb-2"
-                        style={{ backgroundColor: "#3b5998" }}
-                        type="submit"
-                      >
-                        <i className="fab fa-facebook-f me-2"></i>Sign in with
-                        facebook
-                      </button>
                     </div>
                   </div>
                 </form>
