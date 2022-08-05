@@ -10,7 +10,8 @@
     "test": "test",
     "start-dev": "NODE_ENV='development' react-scripts start",
     "start": "react-scripts start",
-    "build": "cd react-ui/ && npm install && npm run build"
+    "build": "react-scripts build",
+    "postinstall": "npm run build"
   },
   "author": "",
   "license": "ISC",
