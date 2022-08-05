@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 const Register = (props) => {
     let navigate = useNavigate();
+    const [shortPasswordError, setShortPasswordError] = useState(false)
     const [passwordError, setPasswordError] = useState(false)
     const [userError, setUserError] = useState(false)
     const { setToken } = props;
@@ -17,7 +18,13 @@ const Register = (props) => {
             return;
           }
         setPasswordError(false)
-        const {user , token} = await registerUser (username, password);
+        const {user , token, error} = await registerUser (username, password);
+        console.log(error)
+        if (error){
+          setShortPasswordError(true)
+          return;
+        }
+        setShortPasswordError(false)
         if (!user){
           setUserError(true)
           return;
@@ -68,7 +75,9 @@ const Register = (props) => {
               {
                 passwordError &&  <p className="form-label" style={{color:"red", fontSize: ".8rem"}}>Passwords do not Match</p>
               }
-             
+             {
+                shortPasswordError &&  <p className="form-label" style={{color:"red", fontSize: ".8rem"}}>Password is less than 8 characters!</p>
+              }
             </div>
 
             <div className="form-check d-flex justify-content-center mb-4">

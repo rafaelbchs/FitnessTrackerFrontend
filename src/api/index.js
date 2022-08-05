@@ -33,6 +33,7 @@ export async function registerUser(username, password){
         password: password
       })})
       const result = response.json()
+
         return result
       
   } catch (error) {
