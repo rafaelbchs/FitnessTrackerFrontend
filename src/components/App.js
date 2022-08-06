@@ -12,6 +12,7 @@ import RoutinesByUser from "./RoutinesByUser";
 import ActivitiesByName from "./ActivitiesByName";
 import Home from "./Home";
 import NotFoundPage from "./NotFoundPage";
+import AuthenticatedRoute from "./AuthenticatedRoute";
 
 const App = () => {
   const [token, setToken] = useState("");
@@ -27,10 +28,10 @@ const App = () => {
             path="/routines/:creatorName/:routineId"
             element={<RoutineActivities />}
           />
-          <Route path="/myroutines" element={<MyRoutines />} />
+          <Route path="/myroutines" element={<AuthenticatedRoute element={<MyRoutines />} />} />
           <Route
             path="/myroutines/:creatorId/:routineId"
-            element={<EachRoutine />}
+            element={<AuthenticatedRoute element={<EachRoutine />} />}
           />
           <Route path="/activities" element={<Activities />} />
           <Route path="/routines/:creatorName" element={<RoutinesByUser />} />
