@@ -8,8 +8,13 @@ import {
   updateSingleRoutineActivity,
   submitDeleteRoutine,
 } from "../api";
+import AuthenticatedRoute from "./AuthenticatedRoute";
 
 const EachRoutine = () => {
+  const token = localStorage.getItem("token");
+  if (!token){
+    return (<AuthenticatedRoute/>)
+  }
   let navigate = useNavigate();
   const location = useLocation();
   const { routine } = location.state;
@@ -26,7 +31,7 @@ const EachRoutine = () => {
   currentActivities.forEach((element) => {
     namesOfAllActivities.push(element.name);
   });
-  const token = localStorage.getItem("token");
+
 
   let activityNames = [];
 

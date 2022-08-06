@@ -2,12 +2,17 @@ import React, { useState, useEffect } from "react";
 import { createRoutine } from "../api";
 import { useNavigate, Link } from "react-router-dom";
 import { getPublicRoutinesByUser } from "../api";
+import AuthenticatedRoute from "./AuthenticatedRoute";
 
 const MyRoutines = () => {
+  const token = localStorage.getItem("token");
+  if (!token){
+    return (<AuthenticatedRoute/>)
+  }
   let navigate = useNavigate();
   const [MyRoutines, setMyRoutines] = useState([]);
   const { username } = JSON.parse(localStorage.getItem("user"));
-  const token = localStorage.getItem("token");
+
 
   useEffect(() => {
     async function getData() {
